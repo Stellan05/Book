@@ -12,6 +12,7 @@ public class PasswordUtil {
      * @param studentId 学号
      * @return 初始密码
      */
+
     public static String generateInitialPassword(String studentId) {
         if (studentId == null || studentId.length() < 6) {
             throw new IllegalArgumentException("studentId must contain at least 6 characters");
@@ -22,5 +23,4 @@ public class PasswordUtil {
         
         return "zjut" + lastSixDigits;
     }
-
 } 
