@@ -7,7 +7,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -19,7 +18,7 @@ import java.util.Map;
 @Component
 @Slf4j
 public class JWTUtil {
-    // 使用 HS256 密钥时，密钥长度需要满足大于32字节，以防被暴力破解
+    // 使用 HS256 密钥时，密钥长度需要满足大于32字节，以防被暴力破解。
     /*
       *private final static String secretKey = "my-secret-key-my-secret-ket-plus-32-characters";
       *private final static SecretKey SIGNING_KEY = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
