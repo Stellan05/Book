@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.baozi.book.mapper.ReportMapper">
+    <select id="getReportPage" resultType="org.example.baozi.book.entity.Report">
+        SELECT
+           id,
+           reporter_id,
+           reported_id,
+           book_id,
+           reason,
+           report_time as createTime,
+           status,
+           result,
+           handle_time as updateTime,
+           handler_id,
+           opinion,
+           book_type,
+           diff_score
+        FROM report
+        <where>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>

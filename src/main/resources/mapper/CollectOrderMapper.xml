@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.baozi.book.mapper.CollectOrderMapper">
+    
+    <!-- 根据校区分页查询待接单订单 -->
+    <select id="getOrderPageByCampus" resultType="org.example.baozi.book.vo.CollectOrderVO">
+        SELECT co.id,
+               co.student_id,
+               s.phone as studentPhone,
+               s.dormitory as studentDormitory,
+               co.sealed_book_id,
+               co.campus,
+               co.create_time,
+               co.accept_time,
+               co.finish_time,
+               co.actual_weight,
+               co.price_per_kg,
+               co.commission_amount,
+               co.student_amount
+        FROM collect_order co
+        JOIN student s ON s.student_id = co.student_id
+        JOIN sealed_book sb ON sb.book_id = co.sealed_book_id
+        WHERE co.campus = #{campus} AND co.status = 0
+        ORDER BY co.create_time DESC
+    </select>
+<!--!注意：当需要使用到分页，即 mybatis-plus自动配置的分页时，末尾不能加分号，否则limit等分页有关的字符无法添加-->
+
+
+    <!-- 根据收书员ID分页查询已接单订单 -->
+    <select id="getOrderPageByCollector" resultType="org.example.baozi.book.vo.CollectOrderVO">
+        SELECT
+            co.id,
+            co.student_id,
+            s.phone as studentPhone,
+            s.dormitory as studentDormitory,
+            c.phone as collectorPhone,
+            c.real_name as collectorName,
+            co.sealed_book_id,
+            co.campus,
+            co.status,
+            co.create_time,
+            co.accept_time,
+            co.finish_time,
+            co.actual_weight,
+            co.price_per_kg,
+            co.commission_amount,
+            co.student_amount
+        FROM collector c
+        JOIN collect_order co ON co.collector_id = c.collector_id
+        JOIN book.student s on co.student_id = s.student_id
+        WHERE c.collector_id = #{collectorId}
+        ORDER BY co.create_time DESC
+    </select>
+</mapper> 
