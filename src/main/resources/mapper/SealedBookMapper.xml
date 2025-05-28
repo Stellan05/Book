@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.baozi.book.mapper.SealedBookMapper">
+    <!--    此处要注意，查询到的结果要与VO类中的数据名称对应，否则会报错-->
+    <select id="sealedBookList"  resultType="org.example.baozi.book.vo.SealedBookVO">
+        SELECT b.id,
+               b.owner_id                               as ownerId,
+               b.create_time                            as createTime,
+               b.campus,
+               s.book_weight                            as weight,
+               s.price                                  as price,
+               IF(
+                       b.book_data IS NOT NULL, true, false
+               ) AS hasCover
+        FROM book b
+                 JOIN sealed_book s ON b.id = s.book_id
+        WHERE b.owner_id = #{ownerId}
+    </select>
+</mapper>

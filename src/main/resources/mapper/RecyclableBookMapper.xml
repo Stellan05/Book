@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.baozi.book.mapper.RecyclableBookMapper">
+<!--    此处要注意，查询到的结果要与VO类中的数据名称对应，否则会报错-->
+<select id="getRBookByPage" resultType="org.example.baozi.book.vo.RecyclableBookVO">
+    SELECT b.id ,b.owner_id as ownerId,
+           b.campus,
+           b.create_time as createTime,
+           r.book_title as title,
+           r.publisher,
+           r.printing_edition as edition
+    FROM book.recyclable_book r
+    JOIN book.book b ON r.book_id = b.id
+</select>
+
+</mapper>
